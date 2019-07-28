@@ -1,0 +1,99 @@
+syntax = "proto3";
+package api;
+
+// messaging with book data
+message Book {
+	// unique id
+	int64 id = 1;
+
+	// book title
+	string title = 2;
+
+	// author
+	string author = 3;
+
+	// book description
+	string description = 4;
+
+	// page numbers
+	int64 pages = 5;
+
+	// price
+	int64 price = 6;
+}
+
+// message creating new book information
+message CreateRequest {
+	// add Book message
+	Book book = 1;
+}
+
+// Response message
+message CreateResponse {
+	// Creating book ID
+	int64 id = 1;
+}
+
+// Get Book Information by ID
+message GetRequest {
+	int64 id = 1;
+}
+
+
+// Get Book Information Response
+message GetResponse {
+	// Book Information
+	Book book = 1;
+}
+
+// Update Message
+message UpdateRequest {
+	// data for update book
+	Book book = 1;
+}
+
+// Update Response
+message UpdateResponse {
+	// update numbers
+	int64 updated = 1;
+}
+
+// delete request
+message DeleteRequest {
+
+	// Delete Book ID
+	int64 id =1;
+}
+
+// delete response
+message DeleteResponse {
+	// deleted number
+	int64 deleted = 1;
+}
+
+// get all books request
+message GetAllRequest{}
+
+// get all books response
+message GetAllResponse {
+	// get book information List
+	repeated Book books = 1;
+}
+
+// gRPC service
+service BookService {
+	// Creating Books information rpc method
+	rpc Create(CreateRequest) returns (CreateResponse);
+
+	// Getting a Book Information rpc method
+	rpc Get(GetRequest) returns (GetResponse);
+
+	// Update rpc method
+	rpc Update(UpdateRequest) returns (UpdateResponse);
+
+	// Delete rpc method
+	rpc Delete(DeleteRequest) returns (DeleteResponse);
+
+	// Getting alll books information rpc method
+	rpc GetAll(GetAllRequest) returns (GetAllResponse);
+}
